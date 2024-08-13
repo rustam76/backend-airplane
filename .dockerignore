@@ -1,0 +1,5 @@
+*.war
+*.zip
+*.git
+*.gitignore
+*.DS_Store

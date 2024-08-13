@@ -1,5 +1,5 @@
 CREATE TABLE `airport` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `name` varchar(255),
   `city` varchar(255),
   `country` varchar(255),
@@ -7,31 +7,31 @@ CREATE TABLE `airport` (
 );
 
 CREATE TABLE `airline` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `name` varchar(255),
   `code` varchar(10) UNIQUE
 );
 
 CREATE TABLE `seats` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `seat_number` varchar(10),
   `class` varchar(50),
-  `flight_id` int
+  `flight_id` uuid
 );
 
 CREATE TABLE `flight` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `flight_number` varchar(10) UNIQUE,
   `departure_time` datetime,
   `arrival_time` datetime,
-  `departure_airport_id` int,
-  `arrival_airport_id` int,
-  `airline_id` int
+  `departure_airport_id` uuid,
+  `arrival_airport_id` uuid,
+  `airline_id` uuid
 );
 
 CREATE TABLE `payment` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `booking_id` int,
+  `id` uuid PRIMARY KEY,
+  `booking_id` uuid,
   `payment_method` varchar(50),
   `transaction_id` varchar(100) UNIQUE,
   `payment_status` varchar(50),
@@ -44,26 +44,26 @@ CREATE TABLE `payment` (
 );
 
 CREATE TABLE `booking` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `booking_code` varchar(20) UNIQUE,
   `booking_date` datetime,
-  `passenger_id` int,
+  `passenger_id` uuid,
   `total_amount` decimal(10,2),
   `status` varchar(50),
-  `payment_id` int
+  `payment_id` uuid
 );
 
 CREATE TABLE `booking_detail` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `booking_id` int,
-  `flight_id` int,
-  `seat_id` int,
+  `id` uuid PRIMARY KEY,
+  `booking_id` uuid,
+  `flight_id` uuid,
+  `seat_id` uuid,
   `price` decimal(10,2),
-  `discount_id` int
+  `discount_id` uuid
 );
 
 CREATE TABLE `discount` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `code` varchar(20) UNIQUE,
   `description` varchar(255),
   `discount_percent` int,
@@ -72,26 +72,26 @@ CREATE TABLE `discount` (
 );
 
 CREATE TABLE `notification` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
-  `booking_id` int,
+  `id` uuid PRIMARY KEY,
+  `booking_id` uuid,
   `message` varchar(255),
   `sent_at` datetime,
   `status` varchar(50)
 );
 
 CREATE TABLE `users` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `username` varchar(50) UNIQUE,
   `email` varchar(255) UNIQUE,
   `password` varchar(255),
-  `role_id` int,
-  `passenger_id` int,
+  `role_id` uuid,
+  `passenger_id` uuid,
   `created_at` datetime,
   `updated_at` datetime
 );
 
 CREATE TABLE `passenger` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `first_name` varchar(255),
   `last_name` varchar(255),
   `email` varchar(255) UNIQUE,
@@ -99,7 +99,7 @@ CREATE TABLE `passenger` (
 );
 
 CREATE TABLE `role` (
-  `id` int PRIMARY KEY AUTO_INCREMENT,
+  `id` uuid PRIMARY KEY,
   `role_name` varchar(50) UNIQUE,
   `description` varchar(255)
 );
