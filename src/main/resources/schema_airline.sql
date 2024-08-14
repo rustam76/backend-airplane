@@ -1,5 +1,5 @@
 CREATE TABLE `airport` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `name` varchar(255),
   `city` varchar(255),
   `country` varchar(255),
@@ -7,31 +7,31 @@ CREATE TABLE `airport` (
 );
 
 CREATE TABLE `airline` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `name` varchar(255),
   `code` varchar(10) UNIQUE
 );
 
 CREATE TABLE `seats` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `seat_number` varchar(10),
   `class` varchar(50),
-  `flight_id` uuid
+  `flight_id` BIGINT
 );
 
 CREATE TABLE `flight` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `flight_number` varchar(10) UNIQUE,
   `departure_time` datetime,
   `arrival_time` datetime,
-  `departure_airport_id` uuid,
-  `arrival_airport_id` uuid,
-  `airline_id` uuid
+  `departure_airport_id` BIGINT,
+  `arrival_airport_id` BIGINT,
+  `airline_id` BIGINT
 );
 
 CREATE TABLE `payment` (
-  `id` uuid PRIMARY KEY,
-  `booking_id` uuid,
+  `id` BIGINT PRIMARY KEY,
+  `booking_id` BIGINT,
   `payment_method` varchar(50),
   `transaction_id` varchar(100) UNIQUE,
   `payment_status` varchar(50),
@@ -44,26 +44,26 @@ CREATE TABLE `payment` (
 );
 
 CREATE TABLE `booking` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `booking_code` varchar(20) UNIQUE,
   `booking_date` datetime,
-  `passenger_id` uuid,
+  `passenger_id` BIGINT,
   `total_amount` decimal(10,2),
   `status` varchar(50),
-  `payment_id` uuid
+  `payment_id` BIGINT
 );
 
 CREATE TABLE `booking_detail` (
-  `id` uuid PRIMARY KEY,
-  `booking_id` uuid,
-  `flight_id` uuid,
-  `seat_id` uuid,
+  `id` BIGINT PRIMARY KEY,
+  `booking_id` BIGINT,
+  `flight_id` BIGINT,
+  `seat_id` BIGINT,
   `price` decimal(10,2),
-  `discount_id` uuid
+  `discount_id` BIGINT
 );
 
 CREATE TABLE `discount` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `code` varchar(20) UNIQUE,
   `description` varchar(255),
   `discount_percent` int,
@@ -72,26 +72,26 @@ CREATE TABLE `discount` (
 );
 
 CREATE TABLE `notification` (
-  `id` uuid PRIMARY KEY,
-  `booking_id` uuid,
+  `id` BIGINT PRIMARY KEY,
+  `booking_id` BIGINT,
   `message` varchar(255),
   `sent_at` datetime,
   `status` varchar(50)
 );
 
 CREATE TABLE `users` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `username` varchar(50) UNIQUE,
   `email` varchar(255) UNIQUE,
   `password` varchar(255),
-  `role_id` uuid,
-  `passenger_id` uuid,
+  `role_id` BIGINT,
+  `passenger_id` BIGINT,
   `created_at` datetime,
   `updated_at` datetime
 );
 
 CREATE TABLE `passenger` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `first_name` varchar(255),
   `last_name` varchar(255),
   `email` varchar(255) UNIQUE,
@@ -99,7 +99,7 @@ CREATE TABLE `passenger` (
 );
 
 CREATE TABLE `role` (
-  `id` uuid PRIMARY KEY,
+  `id` BIGINT PRIMARY KEY,
   `role_name` varchar(50) UNIQUE,
   `description` varchar(255)
 );
