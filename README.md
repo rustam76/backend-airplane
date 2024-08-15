@@ -1,13 +1,22 @@
+```bash
+git clone 
+```
 
-installation with docker
+**2. Create Mysql database**
+```bash
+create database db_airline
+```
+- run `src/main/resources/shema_airline.sql`
 
+**3. Change mysql username and password as per your installation**
 
-build
++ open `src/main/resources/application.properties`
++ change `spring.datasource.username` and `spring.datasource.password` as per your mysql installation
 
-# docker build -t airline .
+**4. Run the app using maven**
 
-run
+```bash
+mvn spring-boot:run
+```
+The app will start running at <http://localhost:8080>
 
-# docker run 8080:8080 airline
-
-./mvnw package && java -jar target/Airline-0.0.1-SNAPSHOT.jar

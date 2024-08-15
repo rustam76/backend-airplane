@@ -1,13 +1,12 @@
 package com.airline.utils;
 
-import org.springframework.data.domain.Page;
 
 public class ApiResponse<T> {
     private int statusCode;
     private String message;
-    private Page<T> data;
+    private T data;
 
-    public ApiResponse(int statusCode, String message, Page<T> data) {
+    public ApiResponse(int statusCode, String message, T data) {
         this.statusCode = statusCode;
         this.message = message;
         this.data = data;
@@ -36,11 +35,11 @@ public class ApiResponse<T> {
         this.message = message;
     }
 
-    public Page<T> getData() {
+    public T getData() {
         return data;
     }
 
-    public void setData(Page<T> data) {
+    public void setData(T data) {
         this.data = data;
     }
 }

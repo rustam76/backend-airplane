@@ -1,14 +1,15 @@
-package com.airline.User.service;
+package com.airline.service;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
-import com.airline.User.model.User;
-import com.airline.User.repository.UserRepository;
+import com.airline.dto.UserDTO;
+import com.airline.model.User;
+import com.airline.repository.UserRepository;
 
 
 @Service
@@ -22,9 +23,9 @@ public class UserService {
     }
 
 
-     public Page<User> findAllUsers(int page, int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        return userRepository.findAll(pageable);
+     public List<UserDTO> findAllUsers(int page, int size) {
+        Page<User> users = userRepository.findAll(PageRequest.of(page, size));
+        return users.stream().map(this::converUserToDTO).toList();
     }
 
 
@@ -42,4 +43,19 @@ public class UserService {
         User userUsername = userRepository.findByUsername(username);
         return userEmail != null || userUsername != null;
     }
+
+
+
+    // Convert User to UserDTO
+    private UserDTO converUserToDTO(User user) {
+        UserDTO userDTO = new UserDTO(
+            user.getId(),
+            user.getUsername(),
+            user.getEmail(),
+            user.getRole().getRole_name(),
+            user.getCreatedAt(),
+            user.getUpdatedAt()
+        );
+        return userDTO;
+    } 
 }
