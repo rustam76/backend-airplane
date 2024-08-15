@@ -1,4 +1,4 @@
-package com.airline.dto;
+package com.airline.dto.user;
 
 import java.time.LocalDateTime;
 
@@ -9,6 +9,8 @@ public class UserDTO {
     private String roleName;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+
+
 
     // Constructor
     public UserDTO(Long id, String username, String email, String roleName, LocalDateTime createdAt, LocalDateTime updatedAt) {
@@ -45,6 +47,8 @@ public class UserDTO {
         this.email = email;
     }
 
+  
+
     public String getRoleName() {
         return roleName;
     }
@@ -52,6 +56,7 @@ public class UserDTO {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
 
     public LocalDateTime getCreatedAt() {
         return createdAt;

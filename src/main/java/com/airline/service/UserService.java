@@ -7,7 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import com.airline.dto.UserDTO;
+import com.airline.dto.user.UserDTO;
 import com.airline.model.User;
 import com.airline.repository.UserRepository;
 
@@ -23,14 +23,15 @@ public class UserService {
     }
 
 
+
      public List<UserDTO> findAllUsers(int page, int size) {
         Page<User> users = userRepository.findAll(PageRequest.of(page, size));
         return users.stream().map(this::converUserToDTO).toList();
     }
 
 
-    public User findUserById(Long id) {
-        return userRepository.findById(id).orElse(null);
+    public List<UserDTO> findUserById(Long id) {
+        return userRepository.findById(id).stream().map(this::converUserToDTO).toList();
     }
 
 
@@ -46,7 +47,7 @@ public class UserService {
 
 
 
-    // Convert User to UserDTO
+    // // Convert User to UserDTO
     private UserDTO converUserToDTO(User user) {
         UserDTO userDTO = new UserDTO(
             user.getId(),
