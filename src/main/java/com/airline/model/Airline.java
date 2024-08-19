@@ -1,7 +1,12 @@
 package com.airline.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Airline {
 
+    @Id
     private Long id;
     private String name;
     private String code;

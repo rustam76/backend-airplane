@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public boolean userExists(String email,  String username) {
-        User userEmail = userRepository.findByEmail(email);
+        User userEmail = userRepository.findByEmail(email).orElseThrow();
         User userUsername = userRepository.findByUsername(username);
         return userEmail != null || userUsername != null;
     }

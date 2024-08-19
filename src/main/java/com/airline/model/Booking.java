@@ -2,24 +2,43 @@ package com.airline.model;
 
 import java.time.LocalDateTime;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "booking")
 public class Booking {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String booking_code;
     private LocalDateTime booking_date;
-    private Long passeger_id;
+
+    @ManyToOne
+    @JoinColumn(name = "passeger_id", referencedColumnName = "id")
+    private Passenger passeger;
     private String status;
     private Double total_amount;
-    private Long payment_id;
+
+    @ManyToOne
+    @JoinColumn(name = "payment_id", referencedColumnName = "id")
+    private Payment payment;
 
 
-    public Booking(Long id, String booking_code, LocalDateTime booking_date, Long passeger_id, String status, Double total_amount, Long payment_id) {
+    public Booking(Long id, String booking_code, LocalDateTime booking_date, Passenger passeger, String status, Double total_amount, Payment payment) {
         this.id = id;
         this.booking_code = booking_code;
         this.booking_date = booking_date;
-        this.passeger_id = passeger_id;
+        this.passeger = passeger;
         this.status = status;
         this.total_amount = total_amount;
-        this.payment_id = payment_id;
+        this.payment = payment;
     }
 
     public Long getId() {
@@ -46,13 +65,13 @@ public class Booking {
         this.booking_date = booking_date;
     }
 
-    public Long getPasseger_id() {
+    public Passenger getPasseger_id() {
 
-        return passeger_id;
+        return passeger;
     }
 
-    public void setPasseger_id(Long passeger_id) {
-        this.passeger_id = passeger_id;
+    public void setPasseger_id(Passenger passeger) {
+        this.passeger = passeger;
     }
 
     public String getStatus() {
@@ -71,7 +90,13 @@ public class Booking {
         this.total_amount = total_amount;
     }
 
-    public Long getPayment_id() {
-        return payment_id;
+    public Payment getPayment_id() {
+        return payment;
     }
+
+
+    public void setPayment_id(Payment payment) {
+        this.payment = payment;
+    }
+
 }
