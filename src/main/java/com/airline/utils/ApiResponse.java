@@ -15,7 +15,6 @@ public class ApiResponse<T> {
     public ApiResponse(int statusCode, String message) {
         this.statusCode = statusCode;
         this.message = message;
-        this.data = null; // Set data sebagai null
     }
 
 
@@ -41,5 +40,14 @@ public class ApiResponse<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    @Override
+    public String toString(){
+        if (data!= null) {
+            return "{" + "statusCode=" + statusCode + ", message='" + message + '\'' + ", data=" + data + '}';
+        } else {
+            return "{" + "statusCode=" + statusCode + ", message='" + message + '\'' + '}';
+        }
     }
 }

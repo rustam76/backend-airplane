@@ -19,6 +19,7 @@ public class UserService {
 
 
     public User saveUser(User user) {
+        System.out.println("user: "+user);
         return userRepository.save(user);
     }
 
@@ -53,7 +54,7 @@ public class UserService {
             user.getId(),
             user.getUsername(),
             user.getEmail(),
-            user.getRole().getRole_name(),
+            user.getRole().getname(),
             user.getCreatedAt(),
             user.getUpdatedAt()
         );

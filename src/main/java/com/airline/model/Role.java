@@ -15,14 +15,14 @@ public class Role {
 
     @NotEmpty(message = "Role is required")
     @Size(min = 3, max = 50, message = "Role must be between 3 and 50 characters")
-    @Column(unique = true, nullable = false)
-    public String role_name;
+    @Column(unique = true, nullable = false, name = "name")
+    public String name;
     public String description;
 
     public Role() {
     }
-    public Role(String role_name, String description) {
-        this.role_name = role_name;
+    public Role(String name, String description) {
+        this.name = name;
         this.description = description;
     }
 
@@ -34,12 +34,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole_name() {
-        return role_name;
+    public String getname() {
+        return name;
     }
 
-    public void setRole_name(String role_name) {
-        this.role_name = role_name;
+    public void setname(String name) {
+        this.name = name;
     }
 
     public String getDescription() {

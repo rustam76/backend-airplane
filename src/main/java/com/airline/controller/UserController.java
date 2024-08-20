@@ -22,14 +22,13 @@ import com.airline.model.User;
 // import com.airline.service.RoleService;
 import com.airline.service.UserService;
 import com.airline.utils.ApiResponse;
+import com.airline.utils.ApiResponseErr;
 import com.airline.utils.Regex;
 
 import jakarta.validation.Valid;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/users")
-@Slf4j
 public class UserController {
 
     @Autowired
@@ -37,9 +36,9 @@ public class UserController {
 
 
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<ApiResponse<?>> saveUser(@Valid @RequestBody CreateUserDTO user) {
+    public ResponseEntity<?> saveUser(@Valid @RequestBody CreateUserDTO user) {
 
-        log.info("User: " + user.getEmail() + " " + user.getUsername() + " " + user.getPassword() + " " + user.getRoleid());
+        System.out.println("User: " + user.getEmail() + " " + user.getUsername() + " " + user.getPassword() + " " + user.getRoleid());
         try {
 
             String username = user.getUsername();
@@ -50,14 +49,14 @@ public class UserController {
 
             if (username == null || username.isEmpty() || email == null || email.isEmpty() || password == null
                     || password.isEmpty()) {
-                ApiResponse<User> apiResponse = new ApiResponse<>(
+                        ApiResponseErr<User> apiResponse = new ApiResponseErr<>(
                         HttpStatus.BAD_REQUEST.value(),
                         "Username, email and password are required");
                 return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
             }
 
             if (role_id == null) {
-                ApiResponse<User> apiResponse = new ApiResponse<>(
+                ApiResponseErr<User> apiResponse = new ApiResponseErr<>(
                         HttpStatus.BAD_REQUEST.value(),
                         "Role is required");
                 return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
@@ -65,21 +64,21 @@ public class UserController {
 
 
             if (Regex.isValidEmail(email) == false) {
-                ApiResponse<User> apiResponse = new ApiResponse<>(
+                ApiResponseErr<User> apiResponse = new ApiResponseErr<>(
                         HttpStatus.BAD_REQUEST.value(),
                         "Email is not valid");
                 return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
             }
 
             if (Regex.isValidUsername(username) == false) {
-                ApiResponse<User> apiResponse = new ApiResponse<>(
+                ApiResponseErr<User> apiResponse = new ApiResponseErr<>(
                         HttpStatus.BAD_REQUEST.value(),
                         "Username must be between 3 and 50 characters");
                 return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
             }
 
             if (Regex.isValidPassword(password) == false) {
-                ApiResponse<User> apiResponse = new ApiResponse<>(
+                ApiResponseErr<User> apiResponse = new ApiResponseErr<>(
                         HttpStatus.BAD_REQUEST.value(),
                         "Password must be between 6 and 20 characters");
                 return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
@@ -87,7 +86,7 @@ public class UserController {
 
 
             if (userService.userExists(email, username)) {
-                ApiResponse<User> apiResponse = new ApiResponse<>(
+                ApiResponseErr<User> apiResponse = new ApiResponseErr<>(
                         HttpStatus.BAD_REQUEST.value(),
                         "User already exists");
                 return new ResponseEntity<>(apiResponse, HttpStatus.BAD_REQUEST);
@@ -111,7 +110,7 @@ public class UserController {
                     user);
             return new ResponseEntity<>(apiResponse, HttpStatus.CREATED);
         } catch (Exception e) {
-            ApiResponse<User> apiResponse = new ApiResponse<>(
+            ApiResponseErr<User> apiResponse = new ApiResponseErr<>(
                     HttpStatus.INTERNAL_SERVER_ERROR.value(),
                     "Internal server error");
             return new ResponseEntity<>(apiResponse, HttpStatus.INTERNAL_SERVER_ERROR);

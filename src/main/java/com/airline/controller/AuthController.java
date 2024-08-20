@@ -62,7 +62,7 @@ public class AuthController {
         
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public String register() {
         return "register";
     }

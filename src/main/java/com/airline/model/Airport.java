@@ -4,8 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "airport")
 public class Airport {
 
     @Id
@@ -16,6 +18,13 @@ public class Airport {
     private String name;
     private String city;
     private String country;
+
+    public Airport(String code, String name, String city, String country) {
+        this.code = code;
+        this.name = name;
+        this.city = city;
+        this.country = country;
+    }
 
     public Long getId() {
         return id;
@@ -57,4 +66,6 @@ public class Airport {
         this.country = country;
     }
 
+
+ 
 }
